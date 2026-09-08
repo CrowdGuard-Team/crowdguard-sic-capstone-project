@@ -50,6 +50,84 @@ crowdguard-sic-capstone-project/
 └── outputs/
 ```
 
+## Dataset
+
+This project uses the **MOT20 dataset** for crowd monitoring development and evaluation.
+
+Dataset source:
+
+https://huggingface.co/datasets/Lekim89/MOT20
+
+The dataset is not included in this repository because of its size.
+
+For development, we are currently using the **MOT20-01 training sequence**.
+
+### 1. Install Hugging Face CLI
+
+```bash
+pip install -U huggingface_hub
+```
+
+### 2. Download MOT20-01
+
+```bash
+hf download Lekim89/MOT20 \
+  --repo-type dataset \
+  --include "train/MOT20-01/*" \
+  --local-dir dataset
+```
+
+The downloaded sequence will be located at:
+
+```text
+dataset/train/MOT20-01/
+```
+
+### Download Other MOT20 Sequences
+
+Other MOT20 sequences can be downloaded using the same command by changing the sequence name.
+
+For example, to download `MOT20-02`:
+
+```bash
+hf download Lekim89/MOT20 \
+  --repo-type dataset \
+  --include "train/MOT20-02/*" \
+  --local-dir dataset
+```
+
+The same approach can be used for the other available sequences by replacing `MOT20-02` with the required sequence name.
+
+### Convert MOT20 Frames to Video
+
+MOT20 sequences are provided as consecutive image frames rather than MP4 videos.
+
+The included `frames_to_video.py` script converts the frames into a video that can be used with CrowdGuard.
+
+By default, the script is configured to use the `MOT20-01` sequence:
+
+```python
+sequence_path = "dataset/train/MOT20-01"
+```
+
+To use another sequence, change `MOT20-01` to the name of the downloaded sequence.
+
+For example:
+
+```python
+sequence_path = "dataset/train/MOT20-02"
+```
+
+Then run:
+
+```bash
+python frames_to_video.py
+```
+
+Make sure the selected sequence has already been downloaded into the `dataset/train/` directory before running the script.
+
+> **Note:** The `dataset/` directory and generated video files are excluded from Git using `.gitignore`.
+
 ## Setup
 
 ### 1. Clone the Repository
@@ -88,4 +166,4 @@ http://127.0.0.1:5000
 
 - The dataset, uploaded videos, generated outputs, model weights, virtual environment, and environment variables are excluded from Git using `.gitignore`.
 - The current system is still under development.
-- Model evaluation, result visualization, and Gemini API integration are currently planned for the next development stages.
+- Model evaluation, web-based result visualization, and Gemini API integration are currently planned for the next development stages.
