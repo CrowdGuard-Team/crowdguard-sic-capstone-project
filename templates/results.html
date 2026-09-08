@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrowdGuard Results</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="results-page">
+
+        <div class="results-header">
+            <p class="eyebrow">CROWD ANALYSIS</p>
+            <h1>Analysis Results</h1>
+            <p class="results-subtitle">
+                Interactive crowd metrics synchronized with the analyzed video.
+            </p>
+        </div>
+
+        <div class="results-video-container">
+
+            <video id="result-video" controls>
+                <source
+                    src="/outputs/{{ output_video.split('/')[-1] }}"
+                    type="video/mp4"
+                >
+                Your browser does not support the video tag.
+            </video>
+
+        </div>
+
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <span class="metric-label">People</span>
+                <span class="metric-value" id="people-value">--</span>
+                <span class="metric-unit">detected</span>
+            </div>
+
+            <div class="metric-card">
+                <span class="metric-label">Occupancy</span>
+                <span class="metric-value" id="occupancy-value">--</span>
+                <span class="metric-unit">%</span>
+            </div>
+
+            <div class="metric-card">
+                <span class="metric-label">Relative Speed</span>
+                <span class="metric-value" id="speed-value">--</span>
+                <span class="metric-unit">px/s</span>
+            </div>
+
+            <div class="metric-card">
+                <span class="metric-label">Risk Level</span>
+                <span class="metric-value" id="risk-value">--</span>
+                <span class="metric-unit" id="risk-score">Score: --</span>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        const metrics = {{ metrics | tojson }};
+
+        const video = document.getElementById("result-video");
+
+        const peopleValue = document.getElementById("people-value");
+        const occupancyValue = document.getElementById("occupancy-value");
+        const speedValue = document.getElementById("speed-value");
+        const riskValue = document.getElementById("risk-value");
+        const riskScore = document.getElementById("risk-score");
+
+        const FPS = 25;
+
+
+        function getMetricForCurrentFrame(currentTime) {
+
+            if (!metrics.length) {
+                return null;
+            }
+
+            const currentFrame =
+                Math.round(currentTime * FPS) + 1;
+
+            let closest = metrics[0];
+
+            for (const metric of metrics) {
+                if (
+                    Math.abs(metric.frame - currentFrame) <
+                    Math.abs(closest.frame - currentFrame)
+                ) {
+                    closest = metric;
+                }
+            }
+
+            return closest;
+        }
+
+
+        function updateMetrics() {
+
+            const metric =
+                getMetricForCurrentFrame(video.currentTime);
+
+            if (!metric) {
+                return;
+            }
+
+            peopleValue.textContent = metric.people;
+
+            occupancyValue.textContent =
+                (metric.occupancy * 100).toFixed(1);
+
+            if (
+                metric.speed === null ||
+                Number.isNaN(metric.speed)
+            ) {
+                speedValue.textContent = "--";
+            } else {
+                speedValue.textContent =
+                    Number(metric.speed).toFixed(1);
+            }
+
+            riskValue.textContent = metric.risk_level;
+
+            riskScore.textContent =
+                "Score: " +
+                Number(metric.risk_score).toFixed(2);
+        }
+
+
+        video.addEventListener("timeupdate", updateMetrics);
+        video.addEventListener("loadedmetadata", updateMetrics);
+        video.addEventListener("seeked", updateMetrics);
+
+    </script>
+
+</body>
+</html>

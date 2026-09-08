@@ -189,3 +189,80 @@ input[type="file"] {
 .analyze-button:hover {
     opacity: 0.9;
 }
+
+
+.results-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+.results-header {
+    margin-bottom: 32px;
+}
+
+.results-header h1 {
+    font-size: 48px;
+    margin: 8px 0 12px;
+}
+
+.results-subtitle {
+    color: #9ca3af;
+    font-size: 17px;
+}
+
+.results-video-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #111;
+}
+
+.results-video-container video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.metric-card {
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    background: #151515;
+}
+
+.metric-label {
+    color: #9ca3af;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.metric-value {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.metric-unit {
+    color: #777;
+    font-size: 13px;
+}
+
+@media (max-width: 800px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .results-page {
+        padding: 40px 20px;
+    }
+}
