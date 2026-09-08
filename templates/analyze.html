@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analyze Video | CrowdGuard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">
+            CrowdGuard
+        </a>
+    </nav>
+
+    <main class="analyze-page">
+
+        <div class="analyze-header">
+            <p class="tag">CROWD ANALYSIS</p>
+
+            <h1>Analyze Crowd Video</h1>
+
+            <p>
+                Upload a crowd video to detect and track pedestrians,
+                analyze crowd conditions, and assess potential safety risks.
+            </p>
+        </div>
+
+        <div class="upload-card">
+
+            <div class="upload-icon">↑</div>
+
+            <h2>Upload your video</h2>
+
+            <p>
+                Select a video containing a crowd scene to begin the analysis.
+            </p>
+
+            <form>
+                <input
+                    type="file"
+                    id="video"
+                    name="video"
+                    accept="video/mp4,video/quicktime,video/x-msvideo"
+                    required
+                >
+
+                <label for="video" class="file-button">
+                    Choose Video
+                </label>
+
+                <p class="file-types">
+                    MP4, MOV or AVI
+                </p>
+
+                <button type="submit" class="analyze-button">
+                    Analyze Video
+                </button>
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
