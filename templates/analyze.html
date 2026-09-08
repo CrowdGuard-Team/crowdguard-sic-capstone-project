@@ -43,7 +43,11 @@
                 Select a video containing a crowd scene to begin the analysis.
             </p>
 
-            <form>
+            <form
+                action="{{ url_for('analyze') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
                 <input
                     type="file"
                     id="video"
