@@ -19,7 +19,7 @@
             <p class="eyebrow">CROWD ANALYSIS</p>
             <h1>Analysis Results</h1>
             <p class="results-subtitle">
-                Interactive crowd metrics synchronized with the analyzed video.
+                Live frame metrics synchronized with the analyzed video.
             </p>
         </div>
 
@@ -62,6 +62,29 @@
             </div>
 
         </div>
+
+
+        <section class="ai-assessment">
+            <div class="ai-assessment-header">
+                <div>
+                    <p class="eyebrow">AI-POWERED INSIGHT</p>
+                    <h2>AI Crowd Assessment</h2>
+                </div>
+
+                <span class="ai-risk-badge">
+                    {{ summary.overall_risk }} RISK
+                </span>
+            </div>
+
+            <div class="ai-assessment-content">
+                {{ ai_assessment }}
+            </div>
+
+            <p class="ai-disclaimer">
+                AI-generated guidance based on measured crowd metrics ·
+                Human confirmation required.
+            </p>
+        </section>
 
     </main>
 
