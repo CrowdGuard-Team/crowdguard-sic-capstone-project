@@ -56,9 +56,13 @@
                     required
                 >
 
-                <label for="video" class="file-button">
+                <label for="video" class="file-button" id="file-button">
                     Choose Video
                 </label>
+
+                <p class="selected-file" id="selected-file">
+                    No video selected
+                </p>
 
                 <p class="file-types">
                     MP4, MOV or AVI
@@ -72,6 +76,22 @@
         </div>
 
     </main>
+
+    <script>
+    const videoInput = document.getElementById("video");
+    const fileButton = document.getElementById("file-button");
+    const selectedFile = document.getElementById("selected-file");
+
+    videoInput.addEventListener("change", function () {
+        if (videoInput.files.length > 0) {
+            selectedFile.textContent = videoInput.files[0].name;
+            fileButton.textContent = "Change Video";
+        } else {
+            selectedFile.textContent = "No video selected";
+            fileButton.textContent = "Choose Video";
+        }
+    });
+</script>
 
 </body>
 </html>
