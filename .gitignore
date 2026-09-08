@@ -1,0 +1,23 @@
+# Virtual environment
+crowdguard-env/
+
+# Environment variables
+.env
+
+# Dataset and generated files
+dataset/
+uploads/
+outputs/
+
+# Local videos
+*.mp4
+
+# YOLO weights
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
